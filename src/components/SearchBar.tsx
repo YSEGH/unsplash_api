@@ -11,7 +11,7 @@ const SearchBar = () => {
   return (
     <Box
       paddingX={4}
-      paddingBottom={3}
+      paddingY={3}
       marginBottom={2}
       display={"flex"}
       justifyContent={"center"}

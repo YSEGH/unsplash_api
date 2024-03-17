@@ -1,7 +1,10 @@
 import { Box, Button, Grid, Paper, SxProps, Typography } from "@mui/material";
-import React, { memo, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import OrientationButton from "./OrientationOption";
 import { Orientation } from "@/hooks/useSearch";
+import { ThemeContext } from "@/contexts/ThemeContext";
+import cx from "classnames";
+import { color } from "framer-motion";
 
 type Props = {
   isActive: boolean;
@@ -11,7 +14,10 @@ type Props = {
 };
 
 const areEqualOrientation = (prevProps: any, nextProps: any) => {
-  return prevProps.searchOrientation === nextProps.searchOrientation;
+  return (
+    prevProps.searchOrientation === nextProps.searchOrientation &&
+    prevProps.isActive === nextProps.isActive
+  );
 };
 
 const OrientationInput = React.memo(function OrientationInput({
@@ -20,31 +26,11 @@ const OrientationInput = React.memo(function OrientationInput({
   searchOrientation,
   setSearchOrientation,
 }: Props) {
+  const { theme } = useContext(ThemeContext);
   const boxRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
   const [focus, setFocus] = React.useState<boolean>(false);
-
-  const buttonStyle: SxProps = {
-    cursor: "pointer",
-    outline: "none",
-    height: 1,
-    borderRadius: 16,
-    paddingX: 4,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    backgroundColor: focus ? "#FFF" : "transparent",
-    boxShadow: focus ? "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px" : "none",
-    "&:hover": {
-      backgroundColor: focus ? "#FFF" : isActive ? "#DDDDDD" : "#EBEBEB",
-      boxShadow: focus ? "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px" : "none",
-    },
-    "&:focus": {
-      outline: "none",
-    },
-  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setFocus(true);
@@ -77,6 +63,10 @@ const OrientationInput = React.memo(function OrientationInput({
     >
       <Button
         fullWidth
+        className={cx(`${theme}-mode`, {
+          ["is-focus"]: focus,
+          ["is-active"]: isActive,
+        })}
         ref={buttonRef}
         disableElevation
         sx={buttonStyle}
@@ -84,21 +74,21 @@ const OrientationInput = React.memo(function OrientationInput({
         onClick={handleClick}
       >
         <Typography
-          className="label"
+          className={cx("label", `${theme}-mode`)}
           fontSize={12}
           textTransform={"none"}
-          color={"#000"}
-          fontWeight={600}
+          fontWeight={400}
+          sx={labelStyle}
         >
           Orientation
         </Typography>
         <Typography
-          className="description"
+          className={cx("description", `${theme}-mode`)}
           fontSize={14}
           textTransform={"none"}
           color={"#323232"}
           fontWeight={100}
-          sx={{ opacity: 0.6 }}
+          sx={descriptionStyle}
         >
           Quelle orientation ?
         </Typography>
@@ -112,12 +102,13 @@ const OrientationInput = React.memo(function OrientationInput({
         zIndex={100}
         width={280}
       >
-        <Paper sx={{ padding: 4 }}>
+        <Paper className={cx(`${theme}-mode`)} sx={paperStyle}>
           <Typography
+            className={cx("label", `${theme}-mode`)}
             fontSize={12}
             textTransform={"none"}
-            color={"#000"}
-            fontWeight={600}
+            fontWeight={400}
+            sx={labelStyle}
           >
             Sélèctionnez l&apos;orientation
           </Typography>
@@ -126,6 +117,7 @@ const OrientationInput = React.memo(function OrientationInput({
               {ORIENTATION_LIST.map((orientation: Orientation) => (
                 <Grid item md={12} sm={12} xs={12} key={orientation.name}>
                   <OrientationButton
+                    theme={theme}
                     orientation={orientation}
                     isActive={searchOrientation === orientation.name}
                     setSearchOrientation={setSearchOrientation}
@@ -142,3 +134,71 @@ const OrientationInput = React.memo(function OrientationInput({
 areEqualOrientation);
 
 export default OrientationInput;
+
+const buttonStyle: SxProps = {
+  cursor: "pointer",
+  outline: "none",
+  height: 1,
+  borderRadius: 16,
+  paddingX: 4,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  justifyContent: "center",
+  backgroundColor: "transparent",
+  boxShadow: "none",
+  "&.light-mode": {
+    "&:not(.is-focus)": {
+      "&:hover": {
+        backgroundColor: "#EBEBEB",
+      },
+    },
+    "&.is-active": {
+      "&:not(.is-focus)": {
+        "&:hover": {
+          backgroundColor: "#DDDDDD",
+        },
+      },
+    },
+  },
+  "&.dark-mode": {
+    "&:hover": {
+      backgroundColor: "rgb(18, 18, 23)",
+    },
+  },
+
+  "&.is-focus": {
+    backgroundColor: "#FFF",
+    boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
+    "&.dark-mode": { backgroundColor: "rgb(180, 139, 254)" },
+  },
+};
+
+const paperStyle: SxProps = {
+  padding: 4,
+  "&.light-mode": {
+    backgroundColor: "#FFF",
+  },
+  "&.dark-mode": {
+    backgroundColor: "rgb(30, 30, 37)",
+  },
+};
+
+const labelStyle: SxProps = {
+  "&.light-mode": {
+    color: "#000",
+  },
+  "&.dark-mode": {
+    color: "#FFF",
+  },
+};
+
+const descriptionStyle: SxProps = {
+  opacity: 0.6,
+  "&.light-mode": {
+    color: "#000",
+  },
+  "&.dark-mode": {
+    color: "#FFF",
+  },
+};

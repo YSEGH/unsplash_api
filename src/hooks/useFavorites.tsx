@@ -21,10 +21,8 @@ const useFavoritePhoto = (): {
       );
 
       if (favoriteIndex !== -1) {
-        // Remove the photo if it's already a favorite
         updated.splice(favoriteIndex, 1);
       } else {
-        // Add the photo to favorites
         updated.push({
           id: photo.id,
           download: photo.links.download,
@@ -33,17 +31,14 @@ const useFavoritePhoto = (): {
         });
       }
 
-      // Save updated favorites to localStorage
       localStorage.setItem("favorites", JSON.stringify(updated));
       return updated;
     });
 
-    // Call doneCallback if provided
     doneCallback?.();
   };
 
   useEffect(() => {
-    // Load favorites from localStorage on component mount
     if (typeof window !== "undefined" && localStorage.getItem("favorites")) {
       const initialFavorites = JSON.parse(
         localStorage.getItem("favorites") as string

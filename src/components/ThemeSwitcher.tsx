@@ -33,10 +33,10 @@ const buttonStyle: SxProps = {
   width: 40,
   minWidth: 0,
   borderRadius: 100,
-  "&.light-mode": {
-    backgroundColor: "rgb(85, 26, 139)",
+  backgroundColor: "#b58cff",
+  "&:hover": {
+    backgroundColor: "#8555dc",
   },
-  "&.dark-mode": {
-    backgroundColor: "#b58cff",
-  },
+  "&.light-mode": {},
+  "&.dark-mode": {},
 };

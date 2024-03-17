@@ -11,7 +11,6 @@ type Props = {};
 
 const DesktopSearchBar = ({}: Props) => {
   const { theme } = useContext(ThemeContext);
-
   const boxRef = useRef<HTMLDivElement>(null);
   const {
     isActive,
@@ -47,7 +46,7 @@ const DesktopSearchBar = ({}: Props) => {
   return (
     <Paper
       ref={boxRef}
-      className={`search-${theme}-mode${isActive ? " is-active" : ""}`}
+      className={`${theme}-mode${isActive ? " is-active" : ""}`}
       sx={paperStyle}
     >
       <TextInput
@@ -82,13 +81,13 @@ const paperStyle: SxProps = {
   borderRadius: 16,
   boxShadow:
     "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
-  "&.search-light-mode": {
+  "&.light-mode": {
     backgroundColor: "#FFF",
     "&.is-active": {
       backgroundColor: "#EBEBEB",
     },
   },
-  "&.search-dark-mode": {
+  "&.dark-mode": {
     backgroundColor: "rgb(30, 30, 37)",
     border: "1px solid rgb(181, 140, 255)",
 

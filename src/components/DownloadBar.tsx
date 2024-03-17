@@ -1,15 +1,14 @@
 import { Box } from "@mui/material";
-import React, { useContext } from "react";
+import React from "react";
 import DownloadAllButton from "./DownloadAllButton";
-import { PhotosContext } from "@/contexts/PhotosContext";
 
 type Props = {};
 
-const DownloadBar = (props: Props) => {
+const DownloadBar = ({}: Props) => {
   return (
     <Box
       paddingX={4}
-      paddingBottom={2}
+      paddingY={2}
       marginBottom={2}
       display={"flex"}
       justifyContent={"flex-end"}

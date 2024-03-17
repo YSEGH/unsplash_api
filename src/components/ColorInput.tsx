@@ -13,7 +13,10 @@ type Props = {
 };
 
 const areEqualColor = (prevProps: any, nextProps: any) => {
-  return prevProps.searchColor === nextProps.searchColor;
+  return (
+    prevProps.searchColor === nextProps.searchColor &&
+    prevProps.isActive === nextProps.isActive
+  );
 };
 
 const ColorInput = memo(function ColorInput({
@@ -48,27 +51,6 @@ const ColorInput = memo(function ColorInput({
     };
   }, []);
 
-  const buttonStyle: SxProps = {
-    cursor: "pointer",
-    outline: "none",
-    height: 1,
-    borderRadius: 16,
-    paddingX: 4,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    backgroundColor: focus ? "#FFF" : "transparent",
-    boxShadow: focus ? "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px" : "none",
-    "&:hover": {
-      backgroundColor: focus ? "#FFF" : isActive ? "#DDDDDD" : "#EBEBEB",
-      boxShadow: focus ? "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px" : "none",
-    },
-    "&:focus": {
-      outline: "none",
-    },
-  };
-
   return (
     <Box
       ref={boxRef}
@@ -79,7 +61,10 @@ const ColorInput = memo(function ColorInput({
       position={"relative"}
     >
       <Button
-        className={cx(`${theme}-mode`, { ["is-focus"]: focus })}
+        className={cx(`${theme}-mode`, {
+          ["is-focus"]: focus,
+          ["is-active"]: isActive,
+        })}
         fullWidth
         ref={buttonRef}
         disableElevation
@@ -88,21 +73,21 @@ const ColorInput = memo(function ColorInput({
         onClick={handleClick}
       >
         <Typography
-          className="label"
+          className={cx("label", `${theme}-mode`)}
           fontSize={12}
           textTransform={"none"}
-          color={"#000"}
-          fontWeight={600}
+          fontWeight={400}
+          sx={labelStyle}
         >
           Couleur
         </Typography>
         <Typography
-          className="description"
+          className={cx("description", `${theme}-mode`)}
           fontSize={14}
           textTransform={"none"}
           color={"#323232"}
           fontWeight={100}
-          sx={{ opacity: 0.6 }}
+          sx={descriptionStyle}
         >
           {searchColor !== "" ? searchColor : "Quelle couleur ?"}
         </Typography>
@@ -116,12 +101,13 @@ const ColorInput = memo(function ColorInput({
         zIndex={100}
         width={280}
       >
-        <Paper sx={{ padding: 4 }}>
+        <Paper className={cx(`${theme}-mode`)} sx={paperStyle}>
           <Typography
+            className={cx("label", `${theme}-mode`)}
             fontSize={12}
             textTransform={"none"}
-            color={"#000"}
-            fontWeight={600}
+            sx={labelStyle}
+            fontWeight={400}
           >
             Séléctionnez la/les couleurs
           </Typography>
@@ -146,3 +132,70 @@ const ColorInput = memo(function ColorInput({
 areEqualColor);
 
 export default ColorInput;
+
+const buttonStyle: SxProps = {
+  cursor: "pointer",
+  outline: "none",
+  height: 1,
+  borderRadius: 16,
+  paddingX: 4,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  justifyContent: "center",
+  backgroundColor: "transparent",
+  boxShadow: "none",
+  "&.light-mode": {
+    "&:not(.is-focus)": {
+      "&:hover": {
+        backgroundColor: "#EBEBEB",
+      },
+    },
+    "&.is-active": {
+      "&:not(.is-focus)": {
+        "&:hover": {
+          backgroundColor: "#DDDDDD",
+        },
+      },
+    },
+  },
+  "&.dark-mode": {
+    "&:hover": {
+      backgroundColor: "rgb(18, 18, 23)",
+    },
+  },
+  "&.is-focus": {
+    backgroundColor: "#FFF",
+    boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
+    "&.dark-mode": { backgroundColor: "rgb(180, 139, 254)" },
+  },
+};
+
+const paperStyle: SxProps = {
+  padding: 4,
+  "&.light-mode": {
+    backgroundColor: "#FFF",
+  },
+  "&.dark-mode": {
+    backgroundColor: "rgb(30, 30, 37)",
+  },
+};
+
+const labelStyle: SxProps = {
+  "&.light-mode": {
+    color: "#000",
+  },
+  "&.dark-mode": {
+    color: "#FFF",
+  },
+};
+
+const descriptionStyle: SxProps = {
+  opacity: 0.6,
+  "&.light-mode": {
+    color: "#000",
+  },
+  "&.dark-mode": {
+    color: "#FFF",
+  },
+};
