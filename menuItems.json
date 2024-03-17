@@ -1,0 +1,126 @@
+{
+  "data": {
+    "menuItems": [
+      {
+        "id": 306187,
+        "image": "https://spoonacular.com/menuItemImages/hamburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Garfield's Restaurant & Pub",
+        "servings": {
+          "number": 1,
+          "size": null,
+          "unit": null
+        },
+        "title": "Burger"
+      },
+      {
+        "id": 247615,
+        "image": "https://spoonacular.com/menuItemImages/hamburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Max & Erma's",
+        "servings": {
+          "number": 1,
+          "size": null,
+          "unit": null
+        },
+        "title": "Tony's Bodacious Burger w/ Fries, Max"
+      },
+      {
+        "id": 381778,
+        "image": "https://spoonacular.com/menuItemImages/hamburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Sam & Louie's Ny Pizza",
+        "servings": {
+          "number": 1,
+          "size": null,
+          "unit": null
+        },
+        "title": "Cowboy Burger"
+      },
+      {
+        "id": 370301,
+        "image": "https://spoonacular.com/menuItemImages/hamburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "De Dutch Pannekoek House",
+        "servings": {
+          "number": 1,
+          "size": 231,
+          "unit": "grams"
+        },
+        "title": "Plain Jane Burger, Chicken"
+      },
+      {
+        "id": 321356,
+        "image": "https://spoonacular.com/menuItemImages/hamburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Ninety Nine Restaurants",
+        "servings": {
+          "number": 1,
+          "size": null,
+          "unit": null
+        },
+        "title": "99 Top a Burger, Sauteed Peppers, 2 oz"
+      },
+      {
+        "id": 388376,
+        "image": "https://spoonacular.com/menuItemImages/hamburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Papa Gino's",
+        "servings": {
+          "number": 1,
+          "size": 218,
+          "unit": "g"
+        },
+        "title": "Cheddar Bacon Sub Papa's Burger"
+      },
+      {
+        "id": 420695,
+        "image": "https://images.spoonacular.com/file/wximages/420695-312x231.png",
+        "imageType": "png",
+        "restaurantChain": "Steak N' Shake",
+        "servings": {
+          "number": 1,
+          "size": null,
+          "unit": null
+        },
+        "title": "Wisconsin Buttery Burger"
+      },
+      {
+        "id": 268457,
+        "image": "https://spoonacular.com/menuItemImages/hamburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Yard House",
+        "servings": {
+          "number": 1,
+          "size": null,
+          "unit": null
+        },
+        "title": "Gardein Classic Burger on Multigrain Bun w/ Blue Cheese"
+      },
+      {
+        "id": 362917,
+        "image": "https://spoonacular.com/menuItemImages/cheeseburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Shari's",
+        "servings": {
+          "number": 1,
+          "size": 318,
+          "unit": "g"
+        },
+        "title": "Bleu Cheeseburger"
+      },
+      {
+        "id": 236662,
+        "image": "https://spoonacular.com/menuItemImages/cheeseburger.jpg",
+        "imageType": "jpg",
+        "restaurantChain": "Del Taco",
+        "servings": {
+          "number": 1,
+          "size": null,
+          "unit": null
+        },
+        "title": "Double Del Cheeseburger"
+      }
+    ]
+  }
+}
