@@ -6,7 +6,6 @@ import { PhotosContext } from "@/contexts/PhotosContext";
 type Props = {};
 
 const DownloadBar = (props: Props) => {
-  const { downloadAllPhotos, favorites } = useContext(PhotosContext);
   return (
     <Box
       paddingX={4}
