@@ -32,31 +32,22 @@ const usePhotos = () => {
     });
   };
 
-  const downloadAllPhotos = async (photos: any) => {
+  const downloadAllPhotos = async (photos: any, cb?: (() => void) | null) => {
     try {
       const response = await axios.post(restUrlDownload, photos, {
-        responseType: "arraybuffer", // Demander une réponse de type arraybuffer
+        responseType: "arraybuffer",
       });
-      console.log(response);
-
-      // Vérifier si la réponse est valide
       if (response && response.data) {
-        // Créer un Blob à partir des données binaires
         const blob = new Blob([response.data], { type: "application/zip" });
-
-        // Créer une URL pour le Blob
         const url = window.URL.createObjectURL(blob);
-
-        // Créer un élément <a> pour le téléchargement
         const a = document.createElement("a");
         a.href = url;
         a.download = "photos.zip";
-
-        // Déclencher le téléchargement en simulant un clic sur le lien
         a.click();
-
-        // Révoquer l'URL pour libérer les ressources
         window.URL.revokeObjectURL(url);
+        if (cb) {
+          cb();
+        }
       }
     } catch (e: any) {
       setError(e.message);

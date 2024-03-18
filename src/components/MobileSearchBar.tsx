@@ -1,37 +1,17 @@
 import { SearchBarContext } from "@/contexts/SearchContext";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  List,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Dialog, DialogTitle, List, Paper } from "@mui/material";
 import React, { useContext, useRef, useState } from "react";
 import TextInput from "./TextInput";
 import OrientationInput from "./OrientationInput";
 import ColorInput from "./ColorInput";
 import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
+import SubmitButton from "./SubmitButton";
 
 type Props = {};
 
-const MobileSearchBar = (props: Props) => {
-  const [width, setWidth] = useState(0);
+const MobileSearchBar = ({}: Props) => {
   const boxRef = useRef<HTMLDivElement>(null);
-  const {
-    isActive,
-    setIsActive,
-    searchQuery,
-    setSearchQuery,
-    COLOR_LIST,
-    searchColor,
-    setSearchColor,
-    ORIENTATION_LIST,
-    searchOrientation,
-    setSearchOrientation,
-  } = useContext(SearchBarContext);
-
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -45,62 +25,44 @@ const MobileSearchBar = (props: Props) => {
   return (
     <Box
       paddingX={{ md: 4, sm: 2, xs: 1 }}
-      paddingBottom={3}
+      paddingBottom={0}
       marginBottom={2}
       display={"flex"}
       justifyContent={"center"}
-      boxShadow={"rgb(0 0 0/8%) 0 1px 0"}
+      position={"relative"}
+      height={50}
     >
       <Paper
         ref={boxRef}
         sx={{
-          backgroundColor: isActive ? "#EBEBEB" : "#FFF",
           display: "flex",
           alignItems: "center",
-          height: 54,
-          border: "1px solid #dddddd",
+          height: 50,
+          width: 50,
+          border: "none",
           borderRadius: 16,
-          width: 1,
-          boxShadow:
-            "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+          boxShadow: "none",
+          background: "transparent",
         }}
       >
         <Button
           variant="outlined"
           onClick={handleClickOpen}
           sx={{
-            height: 1,
+            padding: 0,
             borderRadius: 16,
-            paddingX: 4,
+            height: 50,
+            width: 50,
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
             justifyContent: "center",
-            border: "none",
-            "&:hover": {
-              border: "none",
-            },
+            border: "1px solid rgb(181, 140, 255)",
+            minWidth: 0,
             "&:focus": { outline: "none" },
           }}
-          fullWidth
         >
-          <Typography
-            className="label"
-            fontSize={12}
-            textTransform={"none"}
-            color={"#000"}
-            fontWeight={600}
-          >
-            Couleur
-          </Typography>
-          <Typography
-            className="description"
-            fontSize={12}
-            textTransform={"none"}
-            color={"#969696"}
-          >
-            {searchColor ?? "Quelle couleur ?"}
-          </Typography>
+          <SearchIcon sx={{ fill: "rgb(181, 140, 255)" }} />
         </Button>
         <SimpleDialog open={open} onClose={handleClose} />
       </Paper>
@@ -143,6 +105,7 @@ function SimpleDialog(props: SimpleDialogProps) {
         sx: {
           borderRadius: 0,
           height: "100vh",
+          maxHeight: "none",
           width: "100vw",
           margin: 0,
         },
@@ -155,8 +118,11 @@ function SimpleDialog(props: SimpleDialogProps) {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <DialogTitle>Set backup account</DialogTitle>
-        <Button onClick={handleClose}>
+        <DialogTitle sx={{ paddingLeft: 2 }}>Votre recherche</DialogTitle>
+        <Button
+          onClick={handleClose}
+          sx={{ display: "flex", justifyContent: "flex-end", paddingRight: 1 }}
+        >
           <CloseIcon />
         </Button>
       </Box>
@@ -178,6 +144,7 @@ function SimpleDialog(props: SimpleDialogProps) {
           searchOrientation={searchOrientation}
           setSearchOrientation={setSearchOrientation}
         />
+        <SubmitButton cb={() => handleClose()} />
       </List>
     </Dialog>
   );

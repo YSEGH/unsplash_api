@@ -29,8 +29,8 @@ const ThemeSwitcher = ({}: Props) => {
 export default ThemeSwitcher;
 
 const buttonStyle: SxProps = {
-  height: 40,
-  width: 40,
+  height: 30,
+  width: 30,
   minWidth: 0,
   borderRadius: 100,
   backgroundColor: "#b58cff",

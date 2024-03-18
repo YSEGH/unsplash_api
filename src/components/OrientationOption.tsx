@@ -1,5 +1,5 @@
 import { Orientation } from "@/hooks/useSearch";
-import { Button, SxProps } from "@mui/material";
+import { Button, SxProps, Typography } from "@mui/material";
 import React, { memo } from "react";
 import cx from "classnames";
 
@@ -35,7 +35,9 @@ const OrientationOption = memo(function OrientationOption({
       sx={buttonOrientationStyle}
     >
       {orientation.icon}
-      <span>{orientation.title}</span>
+      <Typography fontWeight={300} fontSize={14}>
+        {orientation.title}
+      </Typography>
     </Button>
   );
 },

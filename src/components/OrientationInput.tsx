@@ -1,4 +1,12 @@
-import { Box, Button, Grid, Paper, SxProps, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Paper,
+  SxProps,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useContext, useEffect, useRef } from "react";
 import OrientationButton from "./OrientationOption";
 import { Orientation } from "@/hooks/useSearch";
@@ -26,6 +34,7 @@ const OrientationInput = React.memo(function OrientationInput({
   searchOrientation,
   setSearchOrientation,
 }: Props) {
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const { theme } = useContext(ThemeContext);
   const boxRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -52,6 +61,37 @@ const OrientationInput = React.memo(function OrientationInput({
     };
   }, []);
 
+  if (isMobile) {
+    return (
+      <Box width={1}>
+        <Paper className={cx(`${theme}-mode`)} sx={paperStyle}>
+          <Typography
+            className={cx("label", `${theme}-mode`)}
+            fontSize={12}
+            textTransform={"none"}
+            fontWeight={400}
+            sx={labelStyle}
+          >
+            Sélèctionnez l&apos;orientation
+          </Typography>
+          <Box width={1}>
+            <Grid container spacing={1} marginTop={1}>
+              {ORIENTATION_LIST.map((orientation: Orientation) => (
+                <Grid item md={12} sm={12} xs={12} key={orientation.name}>
+                  <OrientationButton
+                    theme={theme}
+                    orientation={orientation}
+                    isActive={searchOrientation === orientation.name}
+                    setSearchOrientation={setSearchOrientation}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Paper>
+      </Box>
+    );
+  }
   return (
     <Box
       ref={boxRef}
@@ -110,7 +150,7 @@ const OrientationInput = React.memo(function OrientationInput({
             fontWeight={400}
             sx={labelStyle}
           >
-            Sélèctionnez l&apos;orientation
+            Sélectionner le format
           </Typography>
           <Box width={1}>
             <Grid container spacing={1} marginTop={1}>
@@ -175,7 +215,9 @@ const buttonStyle: SxProps = {
 };
 
 const paperStyle: SxProps = {
-  padding: 4,
+  paddingX: { md: 4, sm: 2, xs: 2 },
+  paddingY: 4,
+  boxShadow: "none",
   "&.light-mode": {
     backgroundColor: "#FFF",
   },
@@ -186,7 +228,7 @@ const paperStyle: SxProps = {
 
 const labelStyle: SxProps = {
   "&.light-mode": {
-    color: "#000",
+    color: "rgb(181, 140, 255)",
   },
   "&.dark-mode": {
     color: "#FFF",

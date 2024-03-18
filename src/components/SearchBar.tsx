@@ -6,12 +6,12 @@ import MobileSearchBar from "./MobileSearchBar";
 import { useMediaQuery } from "@mui/material";
 
 const SearchBar = () => {
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
 
   return (
     <Box
-      paddingX={4}
-      paddingY={3}
+      paddingX={0}
+      paddingY={{ md: 3, sm: 0, xs: 0 }}
       marginBottom={2}
       display={"flex"}
       justifyContent={"center"}

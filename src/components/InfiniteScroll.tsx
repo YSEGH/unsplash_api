@@ -1,7 +1,7 @@
 import { PhotosContext } from "@/contexts/PhotosContext";
 import { SearchBarContext } from "@/contexts/SearchContext";
 import { REQUEST_STATUS } from "@/hooks/usePhotos";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useCallback, useContext, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { SearchParams } from "./SubmitButton";
@@ -88,7 +88,7 @@ const InfiniteScroll = ({}: Props) => {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <h1>Une erreur est survenue.</h1>
+        <Typography fontSize={18}>Une erreur est survenue.</Typography>
       </Box>
     );
   }
@@ -102,7 +102,7 @@ const InfiniteScroll = ({}: Props) => {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <h1>Aucun résultat.</h1>
+        <Typography fontSize={18}>Aucun résultat.</Typography>
       </Box>
     );
   }
@@ -116,7 +116,7 @@ const InfiniteScroll = ({}: Props) => {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <h1>Pas de contenu supplémentaire.</h1>
+        <Typography fontSize={18}>Pas de contenu supplémentaire.</Typography>
       </Box>
     );
   }
@@ -131,22 +131,7 @@ const InfiniteScroll = ({}: Props) => {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <h1>Charger plus de contenu.</h1>
-      </Box>
-    );
-  }
-
-  if (requestStatus === REQUEST_STATUS.SUCCESS) {
-    return (
-      <Box
-        ref={ref}
-        height={150}
-        width={1}
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-      >
-        <h1>Charger plus de contenu.</h1>
+        <Typography fontSize={18}>Charger plus de contenu.</Typography>
       </Box>
     );
   }

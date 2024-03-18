@@ -11,7 +11,7 @@ interface PhotosContextType {
   photos: any[];
   getPhotos: (params?: {}, reset?: boolean) => void;
   getPhotosBySearch: (params?: {}, reset?: boolean) => void;
-  downloadAllPhotos: (params?: {}) => void;
+  downloadAllPhotos: (params?: {}, cb?: (() => void) | null) => void;
   requestStatus: string;
   error: string | null;
   favorites: any[];

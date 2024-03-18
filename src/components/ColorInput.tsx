@@ -1,4 +1,12 @@
-import { Box, Button, Grid, Paper, SxProps, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Paper,
+  SxProps,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { memo, useContext, useEffect, useRef } from "react";
 import { Color } from "@/hooks/useSearch";
 import ColorButton from "./ColorOption";
@@ -25,6 +33,7 @@ const ColorInput = memo(function ColorInput({
   searchColor,
   setSearchColor,
 }: Props) {
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const { theme } = useContext(ThemeContext);
   const boxRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -50,6 +59,37 @@ const ColorInput = memo(function ColorInput({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  if (isMobile) {
+    return (
+      <Box width={1}>
+        <Paper className={cx(`${theme}-mode`)} sx={paperStyle}>
+          <Typography
+            className={cx("label", `${theme}-mode`)}
+            fontSize={12}
+            textTransform={"none"}
+            sx={labelStyle}
+            fontWeight={400}
+          >
+            Séléctionnez la/les couleurs
+          </Typography>
+          <Box width={1}>
+            <Grid container spacing={1} marginTop={1}>
+              {COLOR_LIST.map((color: Color) => (
+                <Grid item md={3} key={color.name}>
+                  <ColorButton
+                    color={color}
+                    isActive={searchColor === color.name}
+                    setSearchColor={setSearchColor}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Paper>
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -109,7 +149,7 @@ const ColorInput = memo(function ColorInput({
             sx={labelStyle}
             fontWeight={400}
           >
-            Séléctionnez la/les couleurs
+            Séléctionner la couleur
           </Typography>
           <Box width={1}>
             <Grid container spacing={1} marginTop={1}>
@@ -172,7 +212,9 @@ const buttonStyle: SxProps = {
 };
 
 const paperStyle: SxProps = {
-  padding: 4,
+  paddingX: { md: 4, sm: 2, xs: 2 },
+  paddingY: 4,
+  boxShadow: "none",
   "&.light-mode": {
     backgroundColor: "#FFF",
   },
@@ -183,7 +225,7 @@ const paperStyle: SxProps = {
 
 const labelStyle: SxProps = {
   "&.light-mode": {
-    color: "#000",
+    color: "rgb(181, 140, 255)",
   },
   "&.dark-mode": {
     color: "#FFF",

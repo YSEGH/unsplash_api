@@ -20,11 +20,11 @@ const PhotoList: React.FC<Props> = ({
   setOpen,
 }) => {
   return (
-    <Box paddingX={{ md: 4, sm: 0, xs: 0 }} paddingBottom={2}>
+    <Box paddingX={{ md: 4, sm: 2, xs: 1 }} paddingBottom={2}>
       <Grid
         container
         spacing={{ md: 2, sm: 2, xs: 1 }}
-        sx={{ paddingLeft: { md: 0, sm: 0, xs: 1 }, width: 1 }}
+        sx={{ paddingLeft: { md: 0, sm: 0, xs: 0 }, width: 1 }}
       >
         <AnimatePresence>
           {photos.map((photo: any, i: number) => {

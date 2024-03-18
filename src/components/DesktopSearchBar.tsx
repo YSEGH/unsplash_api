@@ -43,6 +43,7 @@ const DesktopSearchBar = ({}: Props) => {
       document.removeEventListener("mousedown", handleClick);
     };
   }, []);
+
   return (
     <Paper
       ref={boxRef}
@@ -77,10 +78,9 @@ const paperStyle: SxProps = {
   display: "flex",
   alignItems: "center",
   height: 66,
-  border: "1px solid #dddddd",
   borderRadius: 16,
-  boxShadow:
-    "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+  border: "1px solid #f0f0f0",
+  boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
   "&.light-mode": {
     backgroundColor: "#FFF",
     "&.is-active": {

@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { SearchBarContext } from "@/contexts/SearchContext";
 import { PhotosContext } from "@/contexts/PhotosContext";
 
-type Props = {};
+type Props = { cb?: (() => void) | null };
 
 export interface SearchParams {
   page: number;
@@ -13,7 +13,7 @@ export interface SearchParams {
   orientation?: string;
 }
 
-const SubmitButton = ({}: Props) => {
+const SubmitButton = ({ cb = null }: Props) => {
   const { searchColor, searchOrientation, searchQuery } =
     useContext(SearchBarContext);
   const { getPhotosBySearch, getPhotos } = useContext(PhotosContext);
@@ -32,28 +32,33 @@ const SubmitButton = ({}: Props) => {
       if (searchColor) {
         params.color = searchColor;
       }
-
-      console.log(params);
       getPhotosBySearch(params, true);
+      if (cb) {
+        cb();
+      }
       return;
     }
     getPhotos(params, true);
+    if (cb) {
+      cb();
+    }
   };
 
   return (
     <Box
-      width={66}
-      height={1}
-      sx={{ padding: "4px" }}
+      width={{ md: 66, sm: 1, xs: 1 }}
+      height={{ md: 1, sm: "fit-content", xs: "fit-content" }}
+      sx={{ padding: { md: "4px", sm: 2, xs: 2 } }}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"flex-end"}
+      boxSizing={"border-box"}
     >
       <Button
         sx={{
           outline: "none",
-          height: 60,
-          width: 60,
+          height: { md: 60, sm: 40, xs: 40 },
+          width: { md: 60, sm: 1, xs: 1 },
           minWidth: 0,
           backgroundColor: "#b58cff",
           borderRadius: 16,

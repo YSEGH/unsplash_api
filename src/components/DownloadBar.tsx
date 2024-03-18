@@ -8,10 +8,10 @@ const DownloadBar = ({}: Props) => {
   return (
     <Box
       paddingX={4}
-      paddingY={2}
+      paddingY={3}
       marginBottom={2}
       display={"flex"}
-      justifyContent={"flex-end"}
+      justifyContent={{ md: "flex-end", sm: "center", xs: "center" }}
       boxShadow={"rgb(0 0 0/8%) 0 1px 0"}
     >
       <DownloadAllButton />

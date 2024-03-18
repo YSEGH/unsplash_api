@@ -1,4 +1,11 @@
-import { Box, Button, Input, SxProps, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Input,
+  SxProps,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useEffect, useRef, memo, useContext } from "react";
 import cx from "classnames";
 import { ThemeContext } from "@/contexts/ThemeContext";
@@ -21,6 +28,7 @@ const TextInput = memo(function TextInput({
   searchQuery,
   setSearchQuery,
 }: Props) {
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const { theme } = useContext(ThemeContext);
   const boxRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -50,8 +58,49 @@ const TextInput = memo(function TextInput({
     };
   }, []);
 
+  if (isMobile) {
+    return (
+      <Box paddingX={2} paddingY={{ md: 0, sm: 4, xs: 4 }} margin={0}>
+        <Typography
+          className={cx(`${theme}-mode`)}
+          fontSize={12}
+          textTransform={"none"}
+          fontWeight={400}
+          sx={labelStyle}
+        >
+          Votre recherche
+        </Typography>
+        <Input
+          className={cx(`${theme}-mode`)}
+          fullWidth
+          ref={inputRef}
+          placeholder="Saisissez des mots clés"
+          sx={{
+            "&::after": {
+              display: "none",
+            },
+            "&::before": {
+              display: "none",
+            },
+          }}
+          slotProps={{
+            root: {
+              sx: {
+                cursor: "pointer",
+                pointerEvents: "none",
+              },
+            },
+            input: { className: `${theme}-mode`, sx: inputStyle },
+          }}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchQuery}
+        />
+      </Box>
+    );
+  }
+
   return (
-    <Box ref={boxRef} height={1} padding={0} margin={0} width={250}>
+    <Box ref={boxRef} height={1} padding={0} margin={0} width={200}>
       <Button
         className={cx(`${theme}-mode`, {
           ["is-focus"]: focus,
@@ -108,7 +157,8 @@ export default TextInput;
 
 const inputStyle: SxProps = {
   outline: "none",
-  height: 20,
+  height: 21,
+  padding: 0,
   border: "none",
   fontSize: 14,
   fontWeight: 100,
@@ -137,7 +187,8 @@ const buttonStyle: SxProps = {
   outline: "none",
   height: 1,
   borderRadius: 16,
-  paddingX: 4,
+  paddingLeft: 4,
+  paddingRight: 0,
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
@@ -172,7 +223,7 @@ const buttonStyle: SxProps = {
 
 const labelStyle: SxProps = {
   "&.light-mode": {
-    color: "#000",
+    color: "rgb(181, 140, 255)",
   },
   "&.dark-mode": {
     color: "#FFF",

@@ -19,7 +19,12 @@ const RootLayout: React.FC<Props> = ({ children }: Props) => {
     <html lang="fr">
       <Head />
       <body
-        style={{ margin: 0, minHeight: "100vh" }}
+        style={{
+          margin: 0,
+          minHeight: "100vh",
+          position: "relative",
+          backgroundColor: "rgb(18, 18, 23)",
+        }}
         className={inter.className}
       >
         <AppRouterCacheProvider options={{ key: "css" }}>
