@@ -48,7 +48,7 @@ const SubmitButton = ({ cb = null }: Props) => {
     <Box
       width={{ md: 66, sm: 1, xs: 1 }}
       height={{ md: 1, sm: "fit-content", xs: "fit-content" }}
-      sx={{ padding: { md: "4px", sm: 2, xs: 2 } }}
+      sx={{ padding: { md: "4px", sm: "0 16px", xs: "0 16px" } }}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"flex-end"}
@@ -57,7 +57,7 @@ const SubmitButton = ({ cb = null }: Props) => {
       <Button
         sx={{
           outline: "none",
-          height: { md: 60, sm: 40, xs: 40 },
+          height: { md: 60, sm: 50, xs: 50 },
           width: { md: 60, sm: 1, xs: 1 },
           minWidth: 0,
           backgroundColor: "#b58cff",

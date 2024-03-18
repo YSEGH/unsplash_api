@@ -60,7 +60,7 @@ const TextInput = memo(function TextInput({
 
   if (isMobile) {
     return (
-      <Box paddingX={2} paddingY={{ md: 0, sm: 4, xs: 4 }} margin={0}>
+      <Box paddingX={2} paddingY={{ md: 0, sm: 2, xs: 2 }} margin={0}>
         <Typography
           className={cx(`${theme}-mode`)}
           fontSize={12}
@@ -100,7 +100,7 @@ const TextInput = memo(function TextInput({
   }
 
   return (
-    <Box ref={boxRef} height={1} padding={0} margin={0} width={200}>
+    <Box ref={boxRef} height={1} padding={0} margin={0} width={220}>
       <Button
         className={cx(`${theme}-mode`, {
           ["is-focus"]: focus,
@@ -126,7 +126,7 @@ const TextInput = memo(function TextInput({
           className={cx(`${theme}-mode`)}
           fullWidth
           ref={inputRef}
-          placeholder="Saisissez des mots clés"
+          placeholder="Saisir des mots clés"
           sx={{
             "&::after": {
               display: "none",

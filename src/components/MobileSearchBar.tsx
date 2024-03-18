@@ -7,6 +7,7 @@ import ColorInput from "./ColorInput";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import SubmitButton from "./SubmitButton";
+import ResetButton from "./ResetButton";
 
 type Props = {};
 
@@ -107,6 +108,7 @@ function SimpleDialog(props: SimpleDialogProps) {
           height: "100vh",
           maxHeight: "none",
           width: "100vw",
+          maxWidth: "100vw",
           margin: 0,
         },
       }}
@@ -126,7 +128,16 @@ function SimpleDialog(props: SimpleDialogProps) {
           <CloseIcon />
         </Button>
       </Box>
-      <List sx={{ pt: 0 }}>
+      <List
+        sx={{
+          flex: "auto",
+          pt: 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+        }}
+      >
         <TextInput
           isActive={isActive}
           searchQuery={searchQuery}
@@ -145,6 +156,7 @@ function SimpleDialog(props: SimpleDialogProps) {
           setSearchOrientation={setSearchOrientation}
         />
         <SubmitButton cb={() => handleClose()} />
+        <ResetButton />
       </List>
     </Dialog>
   );

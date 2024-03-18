@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import CropLandscapeIcon from "@mui/icons-material/CropLandscape";
 import CropPortraitIcon from "@mui/icons-material/CropPortrait";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
@@ -14,14 +14,14 @@ interface UseTextSearchReturn {
 }
 
 interface UseColorSearchReturn {
-  searchColor: string;
-  setSearchColor: React.Dispatch<React.SetStateAction<string>>;
+  searchColor: Color | null;
+  setSearchColorHandler: (color: Color) => Color | void;
   COLOR_LIST: Color[];
 }
 
 interface UseOrientationSearchReturn {
-  searchOrientation: string;
-  setSearchOrientation: React.Dispatch<React.SetStateAction<string>>;
+  searchOrientation: Orientation | null;
+  setSearchOrientationHandler: (orientation: Orientation) => Orientation | void;
   ORIENTATION_LIST: Orientation[];
 }
 
@@ -47,17 +47,19 @@ const useSearchBar = (): UseSearchBarReturn => {
 };
 
 const useColorSearch = (): UseColorSearchReturn => {
-  const [searchColor, setSearchColor] = useState<string>("");
+  const [searchColor, setSearchColor] = useState<Color | null>(null);
 
-  useEffect(() => {
-    console.log(searchColor);
-
-    return () => {};
-  }, [searchColor]);
-
+  const setSearchColorHandler = (color: Color | null) => {
+    setSearchColor((prevState: any) => {
+      if (prevState && color && color.name === prevState.name) {
+        return null;
+      }
+      return color;
+    });
+  };
   return {
     searchColor,
-    setSearchColor,
+    setSearchColorHandler,
     COLOR_LIST,
   };
 };
@@ -72,11 +74,20 @@ const useTextSearch = (): UseTextSearchReturn => {
 };
 
 const useOrientationSearch = (): UseOrientationSearchReturn => {
-  const [searchOrientation, setSearchOrientation] = useState<string>("");
+  const [searchOrientation, setSearchOrientation] =
+    useState<Orientation | null>(null);
 
+  const setSearchOrientationHandler = (orientation: Orientation | null) => {
+    setSearchOrientation((prevState: any) => {
+      if (prevState && orientation && orientation.name === prevState.name) {
+        return null;
+      }
+      return orientation;
+    });
+  };
   return {
     searchOrientation,
-    setSearchOrientation,
+    setSearchOrientationHandler,
     ORIENTATION_LIST,
   };
 };

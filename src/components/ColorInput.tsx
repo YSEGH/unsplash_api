@@ -16,8 +16,8 @@ import cx from "classnames";
 type Props = {
   isActive: boolean;
   COLOR_LIST: Color[];
-  searchColor: string;
-  setSearchColor: (query: string) => void;
+  searchColor: Color;
+  setSearchColor: (color: Color) => void;
 };
 
 const areEqualColor = (prevProps: any, nextProps: any) => {
@@ -71,7 +71,7 @@ const ColorInput = memo(function ColorInput({
             sx={labelStyle}
             fontWeight={400}
           >
-            Séléctionnez la/les couleurs
+            Séléctionnez la couleurs
           </Typography>
           <Box width={1}>
             <Grid container spacing={1} marginTop={1}>
@@ -79,7 +79,7 @@ const ColorInput = memo(function ColorInput({
                 <Grid item md={3} key={color.name}>
                   <ColorButton
                     color={color}
-                    isActive={searchColor === color.name}
+                    isActive={searchColor && searchColor.name === color.name}
                     setSearchColor={setSearchColor}
                   />
                 </Grid>
@@ -94,7 +94,7 @@ const ColorInput = memo(function ColorInput({
   return (
     <Box
       ref={boxRef}
-      width={175}
+      width={150}
       height={1}
       padding={0}
       margin={0}
@@ -129,7 +129,7 @@ const ColorInput = memo(function ColorInput({
           fontWeight={100}
           sx={descriptionStyle}
         >
-          {searchColor !== "" ? searchColor : "Quelle couleur ?"}
+          {searchColor ? searchColor.title : "Quelle couleur ?"}
         </Typography>
       </Button>
       <Box
@@ -157,7 +157,7 @@ const ColorInput = memo(function ColorInput({
                 <Grid item md={3} key={color.name}>
                   <ColorButton
                     color={color}
-                    isActive={searchColor === color.name}
+                    isActive={searchColor && searchColor.name === color.name}
                     setSearchColor={setSearchColor}
                   />
                 </Grid>
@@ -178,7 +178,8 @@ const buttonStyle: SxProps = {
   outline: "none",
   height: 1,
   borderRadius: 16,
-  paddingX: 4,
+  paddingLeft: 4,
+  paddingRight: 2,
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
@@ -213,8 +214,12 @@ const buttonStyle: SxProps = {
 
 const paperStyle: SxProps = {
   paddingX: { md: 4, sm: 2, xs: 2 },
-  paddingY: 4,
-  boxShadow: "none",
+  paddingY: 2,
+  boxShadow: {
+    md: "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;",
+    sm: "none",
+    xs: "none",
+  },
   "&.light-mode": {
     backgroundColor: "#FFF",
   },

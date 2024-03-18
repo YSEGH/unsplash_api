@@ -6,7 +6,7 @@ import cx from "classnames";
 type Props = {
   orientation: Orientation;
   isActive: boolean;
-  setSearchOrientation: (query: string) => void;
+  setSearchOrientation: (orientation: Orientation) => void;
   theme: string;
 };
 
@@ -29,8 +29,8 @@ const OrientationOption = memo(function OrientationOption({
       key={orientation.name}
       title={orientation.title}
       className={cx(`${theme}-mode`, { ["is-active"]: isActive })}
-      onClick={(e) => {
-        setSearchOrientation(orientation.name);
+      onClick={() => {
+        setSearchOrientation(orientation);
       }}
       sx={buttonOrientationStyle}
     >

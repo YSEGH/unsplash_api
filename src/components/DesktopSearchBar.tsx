@@ -6,6 +6,7 @@ import ColorInput from "./ColorInput";
 import OrientationInput from "./OrientationInput";
 import SubmitButton from "./SubmitButton";
 import { ThemeContext } from "@/contexts/ThemeContext";
+import ResetButton from "./ResetButton";
 
 type Props = {};
 
@@ -45,30 +46,33 @@ const DesktopSearchBar = ({}: Props) => {
   }, []);
 
   return (
-    <Paper
-      ref={boxRef}
-      className={`${theme}-mode${isActive ? " is-active" : ""}`}
-      sx={paperStyle}
-    >
-      <TextInput
-        isActive={isActive}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      <ColorInput
-        isActive={isActive}
-        COLOR_LIST={COLOR_LIST}
-        searchColor={searchColor}
-        setSearchColor={setSearchColor}
-      />
-      <OrientationInput
-        isActive={isActive}
-        ORIENTATION_LIST={ORIENTATION_LIST}
-        searchOrientation={searchOrientation}
-        setSearchOrientation={setSearchOrientation}
-      />
-      <SubmitButton />
-    </Paper>
+    <>
+      <Paper
+        ref={boxRef}
+        className={`${theme}-mode${isActive ? " is-active" : ""}`}
+        sx={paperStyle}
+      >
+        <TextInput
+          isActive={isActive}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <ColorInput
+          isActive={isActive}
+          COLOR_LIST={COLOR_LIST}
+          searchColor={searchColor}
+          setSearchColor={setSearchColor}
+        />
+        <OrientationInput
+          isActive={isActive}
+          ORIENTATION_LIST={ORIENTATION_LIST}
+          searchOrientation={searchOrientation}
+          setSearchOrientation={setSearchOrientation}
+        />
+        <SubmitButton />
+      </Paper>
+      <ResetButton />
+    </>
   );
 };
 

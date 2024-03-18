@@ -17,8 +17,8 @@ import { color } from "framer-motion";
 type Props = {
   isActive: boolean;
   ORIENTATION_LIST: Orientation[];
-  searchOrientation: string;
-  setSearchOrientation: (query: string) => void;
+  searchOrientation: Orientation;
+  setSearchOrientation: (orientation: Orientation) => void;
 };
 
 const areEqualOrientation = (prevProps: any, nextProps: any) => {
@@ -72,7 +72,7 @@ const OrientationInput = React.memo(function OrientationInput({
             fontWeight={400}
             sx={labelStyle}
           >
-            Sélèctionnez l&apos;orientation
+            Sélectionnez le format
           </Typography>
           <Box width={1}>
             <Grid container spacing={1} marginTop={1}>
@@ -81,7 +81,10 @@ const OrientationInput = React.memo(function OrientationInput({
                   <OrientationButton
                     theme={theme}
                     orientation={orientation}
-                    isActive={searchOrientation === orientation.name}
+                    isActive={
+                      searchOrientation &&
+                      searchOrientation.name === orientation.name
+                    }
                     setSearchOrientation={setSearchOrientation}
                   />
                 </Grid>
@@ -95,7 +98,7 @@ const OrientationInput = React.memo(function OrientationInput({
   return (
     <Box
       ref={boxRef}
-      width={190}
+      width={160}
       height={1}
       padding={0}
       margin={0}
@@ -130,7 +133,7 @@ const OrientationInput = React.memo(function OrientationInput({
           fontWeight={100}
           sx={descriptionStyle}
         >
-          Quelle orientation ?
+          {searchOrientation ? searchOrientation.title : "Quel format ?"}
         </Typography>
       </Button>
       <Box
@@ -159,7 +162,10 @@ const OrientationInput = React.memo(function OrientationInput({
                   <OrientationButton
                     theme={theme}
                     orientation={orientation}
-                    isActive={searchOrientation === orientation.name}
+                    isActive={
+                      searchOrientation &&
+                      searchOrientation.name === orientation.name
+                    }
                     setSearchOrientation={setSearchOrientation}
                   />
                 </Grid>
@@ -180,7 +186,8 @@ const buttonStyle: SxProps = {
   outline: "none",
   height: 1,
   borderRadius: 16,
-  paddingX: 4,
+  paddingLeft: 4,
+  paddingRight: 2,
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
@@ -216,8 +223,12 @@ const buttonStyle: SxProps = {
 
 const paperStyle: SxProps = {
   paddingX: { md: 4, sm: 2, xs: 2 },
-  paddingY: 4,
-  boxShadow: "none",
+  paddingY: 2,
+  boxShadow: {
+    md: "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;",
+    sm: "none",
+    xs: "none",
+  },
   "&.light-mode": {
     backgroundColor: "#FFF",
   },

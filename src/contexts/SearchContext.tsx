@@ -6,7 +6,7 @@ import {
   useSearchBar,
   useTextSearch,
 } from "@/hooks/useSearch";
-import React, { createContext, useMemo } from "react";
+import React, { createContext } from "react";
 
 interface propsProvider {
   children: React.ReactNode;
@@ -30,8 +30,8 @@ const SearchBarContext = createContext<any>(defaultSearchContext);
 const SearchProvider: React.FC<propsProvider> = ({ children }) => {
   const { isActive, setIsActive } = useSearchBar();
   const { searchQuery, setSearchQuery } = useTextSearch();
-  const { searchColor, setSearchColor, COLOR_LIST } = useColorSearch();
-  const { searchOrientation, setSearchOrientation, ORIENTATION_LIST } =
+  const { searchColor, setSearchColorHandler, COLOR_LIST } = useColorSearch();
+  const { searchOrientation, setSearchOrientationHandler, ORIENTATION_LIST } =
     useOrientationSearch();
 
   return (
@@ -40,10 +40,10 @@ const SearchProvider: React.FC<propsProvider> = ({ children }) => {
         isActive,
         setIsActive,
         searchColor,
-        setSearchColor,
+        setSearchColor: setSearchColorHandler,
         COLOR_LIST,
         searchOrientation,
-        setSearchOrientation,
+        setSearchOrientation: setSearchOrientationHandler,
         ORIENTATION_LIST,
         searchQuery,
         setSearchQuery,

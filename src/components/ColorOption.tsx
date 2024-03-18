@@ -5,7 +5,7 @@ import React, { memo } from "react";
 type Props = {
   color: Color;
   isActive: boolean;
-  setSearchColor: (query: string) => void;
+  setSearchColor: (color: Color) => void;
 };
 
 const areEqualColor = (prevProps: any, nextProps: any) => {
@@ -22,7 +22,7 @@ const ColorOption = memo(function ColorOption({
       key={color.name}
       title={color.title}
       className={isActive ? `button-color--active` : undefined}
-      onClick={() => setSearchColor(color.name)}
+      onClick={() => setSearchColor(color)}
       sx={{
         ...buttonColorStyle,
         background: color.color,
