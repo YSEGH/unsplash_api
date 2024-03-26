@@ -12,12 +12,11 @@ import OrientationButton from "./OrientationOption";
 import { Orientation } from "@/hooks/useSearch";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import cx from "classnames";
-import { color } from "framer-motion";
 
 type Props = {
   isActive: boolean;
   ORIENTATION_LIST: Orientation[];
-  searchOrientation: Orientation;
+  searchOrientation: Orientation | null;
   setSearchOrientation: (orientation: Orientation) => void;
 };
 
@@ -81,10 +80,10 @@ const OrientationInput = React.memo(function OrientationInput({
                   <OrientationButton
                     theme={theme}
                     orientation={orientation}
-                    isActive={
+                    isActive={Boolean(
                       searchOrientation &&
-                      searchOrientation.name === orientation.name
-                    }
+                        searchOrientation.name === orientation.name
+                    )}
                     setSearchOrientation={setSearchOrientation}
                   />
                 </Grid>
@@ -162,10 +161,10 @@ const OrientationInput = React.memo(function OrientationInput({
                   <OrientationButton
                     theme={theme}
                     orientation={orientation}
-                    isActive={
+                    isActive={Boolean(
                       searchOrientation &&
-                      searchOrientation.name === orientation.name
-                    }
+                        searchOrientation.name === orientation.name
+                    )}
                     setSearchOrientation={setSearchOrientation}
                   />
                 </Grid>

@@ -9,19 +9,21 @@ interface UseSearchBarReturn {
 }
 
 interface UseTextSearchReturn {
+  errorSearch: boolean;
+  setErrorSearch: React.Dispatch<React.SetStateAction<boolean>>;
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface UseColorSearchReturn {
   searchColor: Color | null;
-  setSearchColorHandler: (color: Color) => Color | void;
+  setSearchColorHandler: (color: Color | null) => void;
   COLOR_LIST: Color[];
 }
 
 interface UseOrientationSearchReturn {
   searchOrientation: Orientation | null;
-  setSearchOrientationHandler: (orientation: Orientation) => Orientation | void;
+  setSearchOrientationHandler: (orientation: Orientation | null) => void;
   ORIENTATION_LIST: Orientation[];
 }
 
@@ -65,9 +67,12 @@ const useColorSearch = (): UseColorSearchReturn => {
 };
 
 const useTextSearch = (): UseTextSearchReturn => {
+  const [errorSearch, setErrorSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   return {
+    errorSearch,
+    setErrorSearch,
     searchQuery,
     setSearchQuery,
   };

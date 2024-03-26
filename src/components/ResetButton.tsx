@@ -1,17 +1,25 @@
 import { Box, Button } from "@mui/material";
 import React, { useContext } from "react";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import { SearchBarContext } from "@/contexts/SearchContext";
+import { SearchBarContext, searchContextType } from "@/contexts/SearchContext";
+import { PhotosContext, photosContextType } from "@/contexts/PhotosContext";
 type Props = {};
 
 const ResetButton = ({}: Props) => {
-  const { setSearchColor, setSearchOrientation, setSearchQuery } =
-    useContext(SearchBarContext);
+  const {
+    setSearchColor,
+    setSearchOrientation,
+    setSearchQuery,
+    setErrorSearch,
+  } = useContext<searchContextType>(SearchBarContext);
+  const { getPhotos } = useContext<photosContextType>(PhotosContext);
 
   const onClickHandler = () => {
     setSearchColor(null);
     setSearchOrientation(null);
     setSearchQuery("");
+    setErrorSearch(false);
+    getPhotos({ page: 1 }, true);
   };
 
   return (
@@ -37,6 +45,7 @@ const ResetButton = ({}: Props) => {
           padding: 0,
           "&:hover": {
             backgroundColor: "#8555dc",
+            border: "1px solid #8555dc",
             svg: {
               fill: "#fff",
             },

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useContext } from "react";
-import SearchBar from "./SearchBar";
 import PhotoList from "./PhotoList";
 import { PhotosContext } from "@/contexts/PhotosContext";
 import InfiniteScroll from "./InfiniteScroll";
 import { BackdropContext } from "@/contexts/BackdropContext";
+import SearchBar from "./SearchBar";
 
 type Props = {};
 

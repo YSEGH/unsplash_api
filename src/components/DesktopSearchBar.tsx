@@ -1,17 +1,19 @@
 import { SearchBarContext } from "@/contexts/SearchContext";
-import { Paper, SxProps } from "@mui/material";
-import React, { useContext, useEffect, useRef } from "react";
+import { Box, Paper, Skeleton, SxProps } from "@mui/material";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import TextInput from "./TextInput";
 import ColorInput from "./ColorInput";
 import OrientationInput from "./OrientationInput";
 import SubmitButton from "./SubmitButton";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import ResetButton from "./ResetButton";
+import cx from "classnames";
 
 type Props = {};
 
 const DesktopSearchBar = ({}: Props) => {
-  const { theme } = useContext(ThemeContext);
+  /*   const [loading, setLoading] = useState(true);
+   */ const { theme } = useContext(ThemeContext);
   const boxRef = useRef<HTMLDivElement>(null);
   const {
     isActive,
@@ -24,6 +26,8 @@ const DesktopSearchBar = ({}: Props) => {
     ORIENTATION_LIST,
     searchOrientation,
     setSearchOrientation,
+    errorSearch,
+    setErrorSearch,
   } = useContext(SearchBarContext);
 
   const handleClick: EventListener = (ev: Event) => {
@@ -45,17 +49,39 @@ const DesktopSearchBar = ({}: Props) => {
     };
   }, []);
 
+  /*   if (loading) {
+    return (
+      <Box
+        sx={boxStyle}
+        width={1}
+        display={"flex"}
+        justifyContent={"center"}
+        gap={2}
+      >
+        <Skeleton
+          variant="rounded"
+          width={600}
+          height={66}
+          sx={{ borderRadius: 60 }}
+        />
+        <Skeleton variant="circular" width={66} height={66} />
+      </Box>
+    );
+  } */
+
   return (
-    <>
+    <Box sx={boxStyle}>
       <Paper
         ref={boxRef}
-        className={`${theme}-mode${isActive ? " is-active" : ""}`}
+        className={cx(`${theme}-mode`, { ["is-active"]: isActive })}
         sx={paperStyle}
       >
         <TextInput
           isActive={isActive}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          errorSearch={errorSearch}
+          setErrorSearch={setErrorSearch}
         />
         <ColorInput
           isActive={isActive}
@@ -72,13 +98,20 @@ const DesktopSearchBar = ({}: Props) => {
         <SubmitButton />
       </Paper>
       <ResetButton />
-    </>
+    </Box>
   );
 };
 
 export default DesktopSearchBar;
 
+const boxStyle: SxProps = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
 const paperStyle: SxProps = {
+  width: "fit-content",
   display: "flex",
   alignItems: "center",
   height: 66,

@@ -6,7 +6,7 @@ interface propsProvider {
   children: React.ReactNode;
 }
 
-interface PhotosContextType {
+export interface photosContextType {
   moreContent: boolean;
   photos: any[];
   getPhotos: (params?: {}, reset?: boolean) => void;
@@ -19,7 +19,7 @@ interface PhotosContextType {
   page: number;
 }
 
-const defaultContext: PhotosContextType = {
+const defaultContext: photosContextType = {
   moreContent: true,
   photos: [],
   getPhotos: () => null,
@@ -32,7 +32,7 @@ const defaultContext: PhotosContextType = {
   page: 1,
 };
 
-const PhotosContext = createContext<PhotosContextType>(defaultContext);
+const PhotosContext = createContext<photosContextType>(defaultContext);
 
 const PhotosProvider: React.FC<propsProvider> = ({ children }) => {
   const { favorites, addToFavorite } = useFavorites();
@@ -47,21 +47,21 @@ const PhotosProvider: React.FC<propsProvider> = ({ children }) => {
     getPhotosBySearch,
   } = usePhotos();
 
+  const contextValue: photosContextType = {
+    moreContent,
+    photos,
+    getPhotos,
+    getPhotosBySearch,
+    downloadAllPhotos,
+    requestStatus,
+    error,
+    favorites,
+    addToFavorite,
+    page,
+  };
+
   return (
-    <PhotosContext.Provider
-      value={{
-        moreContent,
-        photos,
-        getPhotos,
-        downloadAllPhotos,
-        requestStatus,
-        error,
-        favorites,
-        addToFavorite,
-        getPhotosBySearch,
-        page,
-      }}
-    >
+    <PhotosContext.Provider value={contextValue}>
       {children}
     </PhotosContext.Provider>
   );

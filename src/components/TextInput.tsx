@@ -14,10 +14,13 @@ type Props = {
   isActive: boolean;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  errorSearch: boolean;
+  setErrorSearch: (bool: boolean) => void;
 };
 
 const isEqualSearchQuery = (prevProps: any, nextProps: any) => {
   return (
+    prevProps.errorSearch === nextProps.errorSearch &&
     prevProps.searchQuery === nextProps.searchQuery &&
     prevProps.isActive === nextProps.isActive
   );
@@ -27,6 +30,8 @@ const TextInput = memo(function TextInput({
   isActive,
   searchQuery,
   setSearchQuery,
+  errorSearch,
+  setErrorSearch,
 }: Props) {
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const { theme } = useContext(ThemeContext);
@@ -62,7 +67,7 @@ const TextInput = memo(function TextInput({
     return (
       <Box paddingX={2} paddingY={{ md: 0, sm: 2, xs: 2 }} margin={0}>
         <Typography
-          className={cx(`${theme}-mode`)}
+          className={cx(`${theme}-mode`, { ["is-error"]: errorSearch })}
           fontSize={12}
           textTransform={"none"}
           fontWeight={400}
@@ -71,7 +76,7 @@ const TextInput = memo(function TextInput({
           Votre recherche
         </Typography>
         <Input
-          className={cx(`${theme}-mode`)}
+          className={cx(`${theme}-mode`, { ["is-error"]: errorSearch })}
           fullWidth
           ref={inputRef}
           placeholder="Saisissez des mots clés"
@@ -90,9 +95,17 @@ const TextInput = memo(function TextInput({
                 pointerEvents: "none",
               },
             },
-            input: { className: `${theme}-mode`, sx: inputStyle },
+            input: {
+              className: cx(`${theme}-mode`, { ["is-error"]: errorSearch }),
+              sx: inputStyle,
+            },
           }}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => {
+            if (errorSearch && e.target.value !== "") {
+              setErrorSearch(false);
+            }
+            setSearchQuery(e.target.value);
+          }}
           value={searchQuery}
         />
       </Box>
@@ -114,7 +127,7 @@ const TextInput = memo(function TextInput({
         onClick={handleClick}
       >
         <Typography
-          className={cx(`${theme}-mode`)}
+          className={cx(`${theme}-mode`, { ["is-error"]: errorSearch })}
           fontSize={12}
           textTransform={"none"}
           fontWeight={400}
@@ -123,7 +136,6 @@ const TextInput = memo(function TextInput({
           Votre recherche
         </Typography>
         <Input
-          className={cx(`${theme}-mode`)}
           fullWidth
           ref={inputRef}
           placeholder="Saisir des mots clés"
@@ -142,9 +154,17 @@ const TextInput = memo(function TextInput({
                 pointerEvents: "none",
               },
             },
-            input: { className: `${theme}-mode`, sx: inputStyle },
+            input: {
+              className: cx(`${theme}-mode`, { ["is-error"]: errorSearch }),
+              sx: inputStyle,
+            },
           }}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => {
+            if (errorSearch && e.target.value !== "") {
+              setErrorSearch(false);
+            }
+            setSearchQuery(e.target.value);
+          }}
           value={searchQuery}
         />
       </Button>
@@ -168,6 +188,8 @@ const inputStyle: SxProps = {
     color: "#000",
 
     "&::placeholder": {
+      fontSize: 14,
+
       color: "#000",
       opacity: 0.6,
     },
@@ -177,6 +199,12 @@ const inputStyle: SxProps = {
 
     "&::placeholder": {
       color: "#fff",
+      opacity: 0.6,
+    },
+  },
+  "&.is-error": {
+    "&::placeholder": {
+      color: "red",
       opacity: 0.6,
     },
   },
@@ -228,14 +256,7 @@ const labelStyle: SxProps = {
   "&.dark-mode": {
     color: "#FFF",
   },
-};
-
-const descriptionStyle: SxProps = {
-  opacity: 0.6,
-  "&.light-mode": {
-    color: "#000",
-  },
-  "&.dark-mode": {
-    color: "#FFF",
+  "&.is-error": {
+    color: "red",
   },
 };

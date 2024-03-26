@@ -25,7 +25,7 @@ const DownloadAllButton = ({}: Props) => {
       disabled={loading}
     >
       {loading ? (
-        <CircularProgress color="inherit" size={20} />
+        <CircularProgress sx={{ color: "#b58cff" }} size={20} />
       ) : (
         "Tout télécharger"
       )}
@@ -38,12 +38,12 @@ export default DownloadAllButton;
 const buttonStyle: SxProps = {
   display: "flex",
   alignItems: "center",
-  height: 66,
+  height: { md: 66, sm: 50, xs: 50 },
   width: 200,
   borderRadius: 16,
   paddingX: 4,
   color: "#b58cff",
-  border: "1px solid rgb(181, 140, 255)",
+  border: "1px solid #b58cff",
   "&.light-mode": {
     backgroundColor: "#FFF",
   },

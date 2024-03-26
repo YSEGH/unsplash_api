@@ -1,5 +1,13 @@
-import { SearchBarContext } from "@/contexts/SearchContext";
-import { Box, Button, Dialog, DialogTitle, List, Paper } from "@mui/material";
+import { SearchBarContext, searchContextType } from "@/contexts/SearchContext";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogTitle,
+  List,
+  Paper,
+  Typography,
+} from "@mui/material";
 import React, { useContext, useRef, useState } from "react";
 import TextInput from "./TextInput";
 import OrientationInput from "./OrientationInput";
@@ -8,6 +16,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import SubmitButton from "./SubmitButton";
 import ResetButton from "./ResetButton";
+import { ThemeContext } from "@/contexts/ThemeContext";
+import cx from "classnames";
 
 type Props = {};
 
@@ -27,7 +37,6 @@ const MobileSearchBar = ({}: Props) => {
     <Box
       paddingX={{ md: 4, sm: 2, xs: 1 }}
       paddingBottom={0}
-      marginBottom={2}
       display={"flex"}
       justifyContent={"center"}
       position={"relative"}
@@ -79,6 +88,8 @@ export interface SimpleDialogProps {
 }
 
 function SimpleDialog(props: SimpleDialogProps) {
+  const { theme } = useContext(ThemeContext);
+
   const {
     isActive,
     setIsActive,
@@ -90,7 +101,9 @@ function SimpleDialog(props: SimpleDialogProps) {
     ORIENTATION_LIST,
     searchOrientation,
     setSearchOrientation,
-  } = useContext(SearchBarContext);
+    errorSearch,
+    setErrorSearch,
+  } = useContext<searchContextType>(SearchBarContext);
 
   const { onClose, open } = props;
 
@@ -103,6 +116,7 @@ function SimpleDialog(props: SimpleDialogProps) {
       open={open}
       fullWidth
       PaperProps={{
+        className: cx(`${theme}-mode`),
         sx: {
           borderRadius: 0,
           height: "100vh",
@@ -110,6 +124,12 @@ function SimpleDialog(props: SimpleDialogProps) {
           width: "100vw",
           maxWidth: "100vw",
           margin: 0,
+          "&.light-mode": {
+            backgroundColor: "#FFF",
+          },
+          "&.dark-mode": {
+            backgroundColor: "rgb(30, 30, 37)",
+          },
         },
       }}
       sx={{ height: 1, margin: 0 }}
@@ -120,12 +140,16 @@ function SimpleDialog(props: SimpleDialogProps) {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <DialogTitle sx={{ paddingLeft: 2 }}>Votre recherche</DialogTitle>
+        <DialogTitle
+          sx={{ paddingLeft: 2, color: theme === "light" ? "#000" : "#fff" }}
+        >
+          Votre recherche
+        </DialogTitle>
         <Button
           onClick={handleClose}
           sx={{ display: "flex", justifyContent: "flex-end", paddingRight: 1 }}
         >
-          <CloseIcon />
+          <CloseIcon sx={{ color: theme === "light" ? "#000" : "#fff" }} />
         </Button>
       </Box>
       <List
@@ -142,6 +166,8 @@ function SimpleDialog(props: SimpleDialogProps) {
           isActive={isActive}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          errorSearch={errorSearch}
+          setErrorSearch={setErrorSearch}
         />
         <ColorInput
           isActive={isActive}
@@ -155,8 +181,22 @@ function SimpleDialog(props: SimpleDialogProps) {
           searchOrientation={searchOrientation}
           setSearchOrientation={setSearchOrientation}
         />
-        <SubmitButton cb={() => handleClose()} />
-        <ResetButton />
+        {errorSearch && (
+          <Box height={20} marginY={2} width={1}>
+            <Typography
+              color={"red"}
+              textAlign={"center"}
+              fontSize={14}
+              fontWeight={200}
+            >
+              Merci de saisir un mot clé.
+            </Typography>
+          </Box>
+        )}
+        <Box display={"flex"} flexDirection={"column"} width={1}>
+          <SubmitButton cb={() => handleClose()} />
+          <ResetButton />
+        </Box>
       </List>
     </Dialog>
   );

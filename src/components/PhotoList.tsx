@@ -3,6 +3,8 @@ import PhotoItem from "./Photo";
 import { motion, AnimatePresence } from "framer-motion";
 import ScrollToTop from "react-scroll-to-top";
 import PhotoBackdrop from "./PhotoBackdrop";
+import { useEffect, useState } from "react";
+import ListSkeleton from "./ListSkeleton";
 
 type Props = {
   photos: any[];
@@ -19,6 +21,17 @@ const PhotoList: React.FC<Props> = ({
   setActivePhoto,
   setOpen,
 }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+    return () => {};
+  }, []);
+
+  if (loading) {
+    return <ListSkeleton />;
+  }
+
   return (
     <Box paddingX={{ md: 4, sm: 2, xs: 1 }} paddingBottom={2}>
       <Grid

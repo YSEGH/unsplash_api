@@ -37,11 +37,11 @@ const InfiniteScroll = ({}: Props) => {
           params.query = searchQuery;
 
           if (searchOrientation) {
-            params.orientation = searchOrientation;
+            params.orientation = searchOrientation.name;
           }
 
           if (searchColor) {
-            params.color = searchColor;
+            params.color = searchColor.name;
           }
           console.log("getPhotosBySearch");
           getPhotosBySearch(params);

@@ -5,7 +5,12 @@ type Props = {};
 
 const ListSkeleton = ({}: Props) => {
   return (
-    <Box width={1} paddingX={{ md: 4, sm: 0, xs: 0 }} paddingBottom={2}>
+    <Box
+      width={1}
+      paddingX={{ md: 4, sm: 2, xs: 2 }}
+      paddingBottom={2}
+      boxSizing={"border-box"}
+    >
       <Grid
         container
         width={1}
@@ -13,7 +18,7 @@ const ListSkeleton = ({}: Props) => {
         sx={{ paddingLeft: { md: 0, sm: 0, xs: 1 } }}
       >
         {Array.from(Array(30).keys()).map((item) => (
-          <Grid key={item} item md={4} sm={3} xs={1} height={350}>
+          <Grid key={item} item md={4} sm={6} xs={12} height={350}>
             <Skeleton
               sx={{ backgroundColor: "grey" }}
               variant="rectangular"

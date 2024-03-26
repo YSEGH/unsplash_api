@@ -16,7 +16,7 @@ import cx from "classnames";
 type Props = {
   isActive: boolean;
   COLOR_LIST: Color[];
-  searchColor: Color;
+  searchColor: Color | null;
   setSearchColor: (color: Color) => void;
 };
 
@@ -79,7 +79,9 @@ const ColorInput = memo(function ColorInput({
                 <Grid item md={3} key={color.name}>
                   <ColorButton
                     color={color}
-                    isActive={searchColor && searchColor.name === color.name}
+                    isActive={Boolean(
+                      searchColor && searchColor.name === color.name
+                    )}
                     setSearchColor={setSearchColor}
                   />
                 </Grid>
@@ -157,7 +159,9 @@ const ColorInput = memo(function ColorInput({
                 <Grid item md={3} key={color.name}>
                   <ColorButton
                     color={color}
-                    isActive={searchColor && searchColor.name === color.name}
+                    isActive={Boolean(
+                      searchColor && searchColor.name === color.name
+                    )}
                     setSearchColor={setSearchColor}
                   />
                 </Grid>
