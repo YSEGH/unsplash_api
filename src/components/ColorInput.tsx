@@ -3,7 +3,6 @@ import {
   Button,
   Grid,
   Paper,
-  SxProps,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -12,6 +11,12 @@ import { Color } from "@/hooks/useSearch";
 import ColorButton from "./ColorOption";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import cx from "classnames";
+import {
+  buttonStyle,
+  descriptionStyle,
+  labelStyle,
+  paperStyle,
+} from "@/style/ColorInputStyle";
 
 type Props = {
   isActive: boolean;
@@ -64,13 +69,7 @@ const ColorInput = memo(function ColorInput({
     return (
       <Box width={1}>
         <Paper className={cx(`${theme}-mode`)} sx={paperStyle}>
-          <Typography
-            className={cx("label", `${theme}-mode`)}
-            fontSize={12}
-            textTransform={"none"}
-            sx={labelStyle}
-            fontWeight={400}
-          >
+          <Typography className={cx("label", `${theme}-mode`)} sx={labelStyle}>
             Séléctionnez la couleurs
           </Typography>
           <Box width={1}>
@@ -114,21 +113,11 @@ const ColorInput = memo(function ColorInput({
         variant="contained"
         onClick={handleClick}
       >
-        <Typography
-          className={cx("label", `${theme}-mode`)}
-          fontSize={12}
-          textTransform={"none"}
-          fontWeight={400}
-          sx={labelStyle}
-        >
+        <Typography className={cx("label", `${theme}-mode`)} sx={labelStyle}>
           Couleur
         </Typography>
         <Typography
           className={cx("description", `${theme}-mode`)}
-          fontSize={14}
-          textTransform={"none"}
-          color={"#323232"}
-          fontWeight={100}
           sx={descriptionStyle}
         >
           {searchColor ? searchColor.title : "Quelle couleur ?"}
@@ -144,13 +133,7 @@ const ColorInput = memo(function ColorInput({
         width={280}
       >
         <Paper className={cx(`${theme}-mode`)} sx={paperStyle}>
-          <Typography
-            className={cx("label", `${theme}-mode`)}
-            fontSize={12}
-            textTransform={"none"}
-            sx={labelStyle}
-            fontWeight={400}
-          >
+          <Typography className={cx("label", `${theme}-mode`)} sx={labelStyle}>
             Séléctionner la couleur
           </Typography>
           <Box width={1}>
@@ -176,77 +159,3 @@ const ColorInput = memo(function ColorInput({
 areEqualColor);
 
 export default ColorInput;
-
-const buttonStyle: SxProps = {
-  cursor: "pointer",
-  outline: "none",
-  height: 1,
-  borderRadius: 16,
-  paddingLeft: 4,
-  paddingRight: 2,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  justifyContent: "center",
-  backgroundColor: "transparent",
-  boxShadow: "none",
-  "&.light-mode": {
-    "&:not(.is-focus)": {
-      "&:hover": {
-        backgroundColor: "#EBEBEB",
-      },
-    },
-    "&.is-active": {
-      "&:not(.is-focus)": {
-        "&:hover": {
-          backgroundColor: "#DDDDDD",
-        },
-      },
-    },
-  },
-  "&.dark-mode": {
-    "&:hover": {
-      backgroundColor: "rgb(18, 18, 23)",
-    },
-  },
-  "&.is-focus": {
-    backgroundColor: "#FFF",
-    boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
-    "&.dark-mode": { backgroundColor: "rgb(180, 139, 254)" },
-  },
-};
-
-const paperStyle: SxProps = {
-  paddingX: { md: 4, sm: 2, xs: 2 },
-  paddingY: 2,
-  boxShadow: {
-    md: "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;",
-    sm: "none",
-    xs: "none",
-  },
-  "&.light-mode": {
-    backgroundColor: "#FFF",
-  },
-  "&.dark-mode": {
-    backgroundColor: "rgb(30, 30, 37)",
-  },
-};
-
-const labelStyle: SxProps = {
-  "&.light-mode": {
-    color: "rgb(181, 140, 255)",
-  },
-  "&.dark-mode": {
-    color: "#FFF",
-  },
-};
-
-const descriptionStyle: SxProps = {
-  opacity: 0.6,
-  "&.light-mode": {
-    color: "#000",
-  },
-  "&.dark-mode": {
-    color: "#FFF",
-  },
-};

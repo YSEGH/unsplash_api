@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import DownloadAllButton from "./DownloadAllButton";
 
 type Props = {};
@@ -19,4 +19,4 @@ const DownloadBar = ({}: Props) => {
   );
 };
 
-export default DownloadBar;
+export default memo(DownloadBar);

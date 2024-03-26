@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React, { memo } from "react";
 import AddToFavoriteButton from "./AddToFavoriteButton";
 import { PhotoProvider } from "@/contexts/PhotoContext";
+import { boxStyle, imageStyle, titleStyle } from "@/style/PhotoStyle";
 
 type Props = {
   photo: any;
@@ -27,7 +28,7 @@ const Photo: React.FC<Props> = memo(function Photo({
       <Box
         position={"relative"}
         height={1}
-        sx={{ backgroundColor: "grey", cursor: "pointer" }}
+        sx={boxStyle}
         onClick={() => {
           setOpen(true);
           setActivePhoto({
@@ -37,9 +38,9 @@ const Photo: React.FC<Props> = memo(function Photo({
           });
         }}
       >
-        <Typography sx={{ position: "absolute" }}>{photo.title}</Typography>
+        <Typography sx={titleStyle}>{photo.title}</Typography>
         <img
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          style={imageStyle}
           src={photo.urls.regular}
           alt={photo.alt_description}
           loading="lazy"

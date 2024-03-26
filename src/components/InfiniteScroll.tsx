@@ -43,10 +43,8 @@ const InfiniteScroll = ({}: Props) => {
           if (searchColor) {
             params.color = searchColor.name;
           }
-          console.log("getPhotosBySearch");
           getPhotosBySearch(params);
         } else {
-          console.log("getPhotos");
           getPhotos(params);
         }
       }
@@ -73,9 +71,8 @@ const InfiniteScroll = ({}: Props) => {
       document.removeEventListener("scroll", onScrollHandler);
     };
   }, [onScrollHandler]);
-  useEffect(() => {
-    console.table({ moreContent, length: photos.length });
 
+  useEffect(() => {
     return () => {};
   }, [moreContent, photos]);
 

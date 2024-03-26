@@ -1,14 +1,22 @@
-import {
-  Box,
-  Button,
-  Input,
-  SxProps,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import React, { useEffect, useRef, memo, useContext } from "react";
+import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
+import React, {
+  useEffect,
+  useRef,
+  memo,
+  useContext,
+  useCallback,
+  useState,
+} from "react";
 import cx from "classnames";
 import { ThemeContext } from "@/contexts/ThemeContext";
+import { debounce } from "throttle-debounce";
+import {
+  buttonStyle,
+  inputPropsStyle,
+  inputStyle,
+  labelStyle,
+  rootStyle,
+} from "@/style/TextInputStyle";
 
 type Props = {
   isActive: boolean;
@@ -33,6 +41,7 @@ const TextInput = memo(function TextInput({
   errorSearch,
   setErrorSearch,
 }: Props) {
+  const [search, setSearch] = useState("");
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const { theme } = useContext(ThemeContext);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -56,6 +65,17 @@ const TextInput = memo(function TextInput({
     }
   };
 
+  const onChangeHandler = useCallback(
+    debounce(300, (value: string) => {
+      console.log("onchange");
+      if (errorSearch && value !== "") {
+        setErrorSearch(false);
+      }
+      setSearchQuery(value);
+    }),
+    []
+  );
+
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
@@ -63,14 +83,17 @@ const TextInput = memo(function TextInput({
     };
   }, []);
 
+  useEffect(() => {
+    setSearch(searchQuery);
+
+    return () => {};
+  }, [searchQuery]);
+
   if (isMobile) {
     return (
       <Box paddingX={2} paddingY={{ md: 0, sm: 2, xs: 2 }} margin={0}>
         <Typography
           className={cx(`${theme}-mode`, { ["is-error"]: errorSearch })}
-          fontSize={12}
-          textTransform={"none"}
-          fontWeight={400}
           sx={labelStyle}
         >
           Votre recherche
@@ -80,33 +103,21 @@ const TextInput = memo(function TextInput({
           fullWidth
           ref={inputRef}
           placeholder="Saisissez des mots clés"
-          sx={{
-            "&::after": {
-              display: "none",
-            },
-            "&::before": {
-              display: "none",
-            },
-          }}
+          sx={inputStyle}
           slotProps={{
             root: {
-              sx: {
-                cursor: "pointer",
-                pointerEvents: "none",
-              },
+              sx: rootStyle,
             },
             input: {
               className: cx(`${theme}-mode`, { ["is-error"]: errorSearch }),
-              sx: inputStyle,
+              sx: inputPropsStyle,
             },
           }}
           onChange={(e) => {
-            if (errorSearch && e.target.value !== "") {
-              setErrorSearch(false);
-            }
-            setSearchQuery(e.target.value);
+            setSearch(e.target.value);
+            onChangeHandler(e.target.value);
           }}
-          value={searchQuery}
+          value={search}
         />
       </Box>
     );
@@ -128,9 +139,6 @@ const TextInput = memo(function TextInput({
       >
         <Typography
           className={cx(`${theme}-mode`, { ["is-error"]: errorSearch })}
-          fontSize={12}
-          textTransform={"none"}
-          fontWeight={400}
           sx={labelStyle}
         >
           Votre recherche
@@ -139,20 +147,10 @@ const TextInput = memo(function TextInput({
           fullWidth
           ref={inputRef}
           placeholder="Saisir des mots clés"
-          sx={{
-            "&::after": {
-              display: "none",
-            },
-            "&::before": {
-              display: "none",
-            },
-          }}
+          sx={inputStyle}
           slotProps={{
             root: {
-              sx: {
-                cursor: "pointer",
-                pointerEvents: "none",
-              },
+              sx: rootStyle,
             },
             input: {
               className: cx(`${theme}-mode`, { ["is-error"]: errorSearch }),
@@ -160,12 +158,10 @@ const TextInput = memo(function TextInput({
             },
           }}
           onChange={(e) => {
-            if (errorSearch && e.target.value !== "") {
-              setErrorSearch(false);
-            }
-            setSearchQuery(e.target.value);
+            setSearch(e.target.value);
+            onChangeHandler(e.target.value);
           }}
-          value={searchQuery}
+          value={search}
         />
       </Button>
     </Box>
@@ -174,89 +170,3 @@ const TextInput = memo(function TextInput({
 isEqualSearchQuery);
 
 export default TextInput;
-
-const inputStyle: SxProps = {
-  outline: "none",
-  height: 21,
-  padding: 0,
-  border: "none",
-  fontSize: 14,
-  fontWeight: 100,
-  cursor: "pointer",
-  pointerEvents: "none",
-  "&.light-mode": {
-    color: "#000",
-
-    "&::placeholder": {
-      fontSize: 14,
-
-      color: "#000",
-      opacity: 0.6,
-    },
-  },
-  "&.dark-mode": {
-    color: "#fff",
-
-    "&::placeholder": {
-      color: "#fff",
-      opacity: 0.6,
-    },
-  },
-  "&.is-error": {
-    "&::placeholder": {
-      color: "red",
-      opacity: 0.6,
-    },
-  },
-};
-
-const buttonStyle: SxProps = {
-  cursor: "pointer",
-  outline: "none",
-  height: 1,
-  borderRadius: 16,
-  paddingLeft: 4,
-  paddingRight: 0,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  justifyContent: "center",
-  backgroundColor: "transparent",
-  boxShadow: "none",
-  "&.light-mode": {
-    "&:not(.is-focus)": {
-      "&:hover": {
-        backgroundColor: "#EBEBEB",
-      },
-    },
-    "&.is-active": {
-      "&:not(.is-focus)": {
-        "&:hover": {
-          backgroundColor: "#DDDDDD",
-        },
-      },
-    },
-  },
-  "&.dark-mode": {
-    "&:hover": {
-      backgroundColor: "rgb(18, 18, 23)",
-    },
-  },
-  "&.is-focus": {
-    backgroundColor: "#FFF",
-    boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
-    "&.dark-mode": { backgroundColor: "rgb(180, 139, 254)" },
-  },
-};
-
-const labelStyle: SxProps = {
-  "&.light-mode": {
-    color: "rgb(181, 140, 255)",
-  },
-  "&.dark-mode": {
-    color: "#FFF",
-  },
-  "&.is-error": {
-    color: "red",
-  },
-};

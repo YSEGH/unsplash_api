@@ -7,15 +7,12 @@ import Link from "next/link";
 import { PhotosContext } from "@/contexts/PhotosContext";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import { styled } from "@mui/material/styles";
+import { iconButton, badgeStyle } from "@/style/FavoritesPageButtonStyle";
 
 type Props = {};
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    padding: "0 4px",
-    backgroundColor: "rgb(85, 26, 139)",
-    color: "#fff",
-  },
+  "& .MuiBadge-badge": badgeStyle,
 }));
 
 const FavoritesPageButton = ({}: Props) => {
@@ -32,12 +29,3 @@ const FavoritesPageButton = ({}: Props) => {
 };
 
 export default FavoritesPageButton;
-
-const iconButton: SxProps = {
-  fill: "#b58cff",
-  "&:hover": {
-    fill: "#8555dc",
-  },
-  "&.light-mode": {},
-  "&.dark-mode": {},
-};

@@ -5,6 +5,8 @@ import { ThemeContext, ThemeProvider } from "../contexts/ThemeContext";
 import { PhotosProvider } from "@/contexts/PhotosContext";
 import { SearchProvider } from "@/contexts/SearchContext";
 import { BackdropProvider } from "@/contexts/BackdropContext";
+import { Box } from "@mui/material";
+import { boxStyle } from "@/style/LayoutStyle";
 
 interface LayoutProps extends React.PropsWithChildren {
   startingTheme: string;
@@ -30,15 +32,9 @@ const LayoutThemeProvider: React.FC<React.PropsWithChildren> = ({
   const { theme } = useContext(ThemeContext)!;
 
   return (
-    <div
-      style={
-        theme === "light"
-          ? { minHeight: "100vh", backgroundColor: "#FFF" }
-          : { minHeight: "100vh", backgroundColor: "rgb(18, 18, 23)" }
-      }
-    >
+    <Box className={`${theme}-mode`} sx={boxStyle}>
       {children}
-    </div>
+    </Box>
   );
 };
 

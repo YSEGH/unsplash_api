@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import Link from "next/link";
 import { ThemeContext } from "@/contexts/ThemeContext";
-import { SxProps } from "@mui/material";
+import { iconStyle } from "@/style/HomePageButtonStyle";
 
 type Props = {};
 
@@ -13,18 +13,9 @@ const HomePageButton = (props: Props) => {
 
   return (
     <Link href="/">
-      <HomeIcon className={`${theme}-mode`} sx={iconButton} />
+      <HomeIcon className={`${theme}-mode`} sx={iconStyle} />
     </Link>
   );
 };
 
 export default HomePageButton;
-
-const iconButton: SxProps = {
-  fill: "#b58cff",
-  "&:hover": {
-    fill: "#8555dc",
-  },
-  "&.light-mode": {},
-  "&.dark-mode": {},
-};

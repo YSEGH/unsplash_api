@@ -3,8 +3,9 @@ import PhotoItem from "./Photo";
 import { motion, AnimatePresence } from "framer-motion";
 import ScrollToTop from "react-scroll-to-top";
 import PhotoBackdrop from "./PhotoBackdrop";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ListSkeleton from "./ListSkeleton";
+import { gridStyle, motionDivStyle } from "@/style/PhotoListStyle";
 
 type Props = {
   photos: any[];
@@ -34,11 +35,7 @@ const PhotoList: React.FC<Props> = ({
 
   return (
     <Box paddingX={{ md: 4, sm: 2, xs: 1 }} paddingBottom={2}>
-      <Grid
-        container
-        spacing={{ md: 2, sm: 2, xs: 1 }}
-        sx={{ paddingLeft: { md: 0, sm: 0, xs: 0 }, width: 1 }}
-      >
+      <Grid container spacing={{ md: 2, sm: 2, xs: 1 }} sx={gridStyle}>
         <AnimatePresence>
           {photos.map((photo: any, i: number) => {
             return (
@@ -51,7 +48,7 @@ const PhotoList: React.FC<Props> = ({
                 height={350}
               >
                 <motion.div
-                  style={{ height: "100%", backgroundColor: "grey" }}
+                  style={motionDivStyle}
                   transition={{
                     type: "spring",
                     duration: 0.5,
@@ -83,4 +80,4 @@ const PhotoList: React.FC<Props> = ({
   );
 };
 
-export default PhotoList;
+export default memo(PhotoList);

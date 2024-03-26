@@ -5,9 +5,13 @@ import DesktopSearchBar from "./DesktopSearchBar";
 import MobileSearchBar from "./MobileSearchBar";
 import { useMediaQuery } from "@mui/material";
 import { SearchBarContext } from "@/contexts/SearchContext";
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
+import {
+  circularSkeletonStyle,
+  roundedSkeletonStyle,
+} from "@/style/SearchBarStyle";
 
-const SearchBar = () => {
+const SearchBar = ({}) => {
   const [loading, setLoading] = useState(true);
   const { errorSearch } = useContext(SearchBarContext);
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
@@ -32,18 +36,9 @@ const SearchBar = () => {
           variant="rounded"
           width={600}
           height={66}
-          sx={{
-            borderRadius: 60,
-            display: { md: "block", sm: "none", xs: "none" },
-          }}
+          sx={roundedSkeletonStyle}
         />
-        <Skeleton
-          variant="circular"
-          sx={{
-            width: { md: 66, sm: 50, xs: 50 },
-            height: { md: 66, sm: 50, xs: 50 },
-          }}
-        />
+        <Skeleton variant="circular" sx={circularSkeletonStyle} />
       </Box>
     );
   }
@@ -75,4 +70,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default memo(SearchBar);

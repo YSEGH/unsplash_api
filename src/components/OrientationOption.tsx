@@ -1,7 +1,8 @@
 import { Orientation } from "@/hooks/useSearch";
-import { Button, SxProps, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { memo } from "react";
 import cx from "classnames";
+import { buttonStyle } from "@/style/OrientationOptionStyle";
 
 type Props = {
   orientation: Orientation;
@@ -32,7 +33,7 @@ const OrientationOption = memo(function OrientationOption({
       onClick={() => {
         setSearchOrientation(orientation);
       }}
-      sx={buttonOrientationStyle}
+      sx={buttonStyle}
     >
       {orientation.icon}
       <Typography fontWeight={300} fontSize={14}>
@@ -44,39 +45,3 @@ const OrientationOption = memo(function OrientationOption({
 areEqualOrientation);
 
 export default OrientationOption;
-
-const buttonOrientationStyle: SxProps = {
-  position: "relative",
-  outline: "none",
-  textTransform: "capitalize",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  gap: 1,
-  minWidth: 0,
-  "&.light-mode": {
-    color: "#000",
-  },
-  "&.dark-mode": {
-    color: "#FFF",
-  },
-  "&:focus": {
-    outline: "none",
-  },
-  "&:hover, &.is-active": {
-    backgroundColor: "transparent",
-    color: "#b58cff",
-    "&:before": {
-      content: '""',
-      height: 5,
-      width: 5,
-      backgroundColor: "#b58cff",
-      position: "absolute",
-      top: 0,
-      bottom: 0,
-      margin: "auto",
-      right: 100,
-      borderRadius: 100,
-    },
-  },
-};
