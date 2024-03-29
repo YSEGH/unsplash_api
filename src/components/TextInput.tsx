@@ -72,7 +72,7 @@ const TextInput: React.FC<Props> = ({
       }
       setSearchQuery(value);
     }),
-    []
+    [errorSearch]
   );
 
   useEffect(() => {
