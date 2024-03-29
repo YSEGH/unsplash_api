@@ -2,6 +2,11 @@ import { PhotoContext } from "@/contexts/PhotoContext";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { useContext, useState } from "react";
+import cx from "classnames";
+import {
+  iconButtonStyle,
+  iconFavoriteStyle,
+} from "@/style/AddToFavoriteButtonStyle";
 
 type Props = {
   isActive: boolean;
@@ -21,9 +26,12 @@ const AddToFavoriteButton: React.FC<Props> = ({ isActive }) => {
     <IconButton
       aria-label="add to favorites"
       onClick={addToFavoriteHandler}
-      sx={{ outline: "none", "&:focus": { outline: "none" } }}
+      sx={iconButtonStyle}
     >
-      <FavoriteIcon sx={{ color: isActive ? "red" : "#fff" }} />
+      <FavoriteIcon
+        className={cx({ [`is-active`]: isActive })}
+        sx={iconFavoriteStyle}
+      />
       {inTransition ? (
         <span className="fas fa-circle-notch fa-spin"></span>
       ) : null}

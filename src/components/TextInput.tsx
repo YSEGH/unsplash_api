@@ -34,13 +34,13 @@ const isEqualSearchQuery = (prevProps: any, nextProps: any) => {
   );
 };
 
-const TextInput = memo(function TextInput({
+const TextInput: React.FC<Props> = ({
   isActive,
   searchQuery,
   setSearchQuery,
   errorSearch,
   setErrorSearch,
-}: Props) {
+}: Props) => {
   const [search, setSearch] = useState("");
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const { theme } = useContext(ThemeContext);
@@ -67,7 +67,6 @@ const TextInput = memo(function TextInput({
 
   const onChangeHandler = useCallback(
     debounce(300, (value: string) => {
-      console.log("onchange");
       if (errorSearch && value !== "") {
         setErrorSearch(false);
       }
@@ -102,7 +101,7 @@ const TextInput = memo(function TextInput({
           className={cx(`${theme}-mode`, { ["is-error"]: errorSearch })}
           fullWidth
           ref={inputRef}
-          placeholder="Saisissez des mots clés"
+          placeholder="Saisissez un mot clé"
           sx={inputStyle}
           slotProps={{
             root: {
@@ -146,7 +145,7 @@ const TextInput = memo(function TextInput({
         <Input
           fullWidth
           ref={inputRef}
-          placeholder="Saisir des mots clés"
+          placeholder="Saisir un mot clé"
           sx={inputStyle}
           slotProps={{
             root: {
@@ -154,7 +153,7 @@ const TextInput = memo(function TextInput({
             },
             input: {
               className: cx(`${theme}-mode`, { ["is-error"]: errorSearch }),
-              sx: inputStyle,
+              sx: inputPropsStyle,
             },
           }}
           onChange={(e) => {
@@ -166,7 +165,6 @@ const TextInput = memo(function TextInput({
       </Button>
     </Box>
   );
-},
-isEqualSearchQuery);
+};
 
-export default TextInput;
+export default memo(TextInput, isEqualSearchQuery);

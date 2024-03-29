@@ -19,8 +19,6 @@ const ColorOption = memo(function ColorOption({
   isActive,
   setSearchColor,
 }: Props) {
-  console.log("Color Option");
-
   return (
     <Button
       key={color.name}

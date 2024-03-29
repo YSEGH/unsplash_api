@@ -33,7 +33,6 @@ export interface CustomDialogProps {
 
 function DialogCustom({ onClose, open }: CustomDialogProps) {
   const { theme } = useContext(ThemeContext);
-
   const {
     isActive,
     searchQuery,

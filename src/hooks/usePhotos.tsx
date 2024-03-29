@@ -93,7 +93,6 @@ const usePhotos = () => {
       const result = await axios.get(restUrlSearch, {
         params: params,
       });
-      console.log(result);
 
       if (result) {
         setPhotos((prevState) => {

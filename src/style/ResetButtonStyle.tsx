@@ -5,7 +5,7 @@ export const buttonStyle: SxProps = {
   height: { md: 60, sm: 50, xs: 50 },
   width: { md: 60, sm: 1, xs: 1 },
   minWidth: 0,
-  border: "1px solid #b58cff",
+  border: "1px solid rgb(181, 140, 255)",
   borderRadius: 16,
   color: "#fff",
   padding: 0,
@@ -18,4 +18,4 @@ export const buttonStyle: SxProps = {
   },
 };
 
-export const iconStyle: SxProps = { fill: "#b58cff" };
+export const iconStyle: SxProps = { fill: "rgb(181, 140, 255)" };

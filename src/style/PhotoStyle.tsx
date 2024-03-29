@@ -1,6 +1,9 @@
 import { SxProps } from "@mui/material";
 
-export const boxStyle: SxProps = { backgroundColor: "grey", cursor: "pointer" };
+export const boxStyle: SxProps = {
+  backgroundColor: "#CCCCCC",
+  cursor: "pointer",
+};
 
 export const titleStyle: SxProps = { position: "absolute" };
 

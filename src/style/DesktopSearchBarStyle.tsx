@@ -12,8 +12,8 @@ export const paperStyle: SxProps = {
   alignItems: "center",
   height: 66,
   borderRadius: 16,
-  border: "1px solid #f0f0f0",
-  boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
+  border: "1px solid rgb(181, 140, 255)",
+  boxShadow: "none",
   "&.light-mode": {
     backgroundColor: "#FFF",
     "&.is-active": {

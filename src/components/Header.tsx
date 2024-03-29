@@ -1,4 +1,4 @@
-import ThemeSwitcher from "./ThemeSwitcher";
+import ThemeSwitcherButton from "./ThemeSwitcherButton";
 import { Grid } from "@mui/material";
 import HomeButton from "./HomePageButton";
 import FavoritesPageButton from "./FavoritesPageButton";
@@ -14,7 +14,7 @@ const Header = () => {
       alignItems={"center"}
     >
       <Grid item>
-        <ThemeSwitcher />
+        <ThemeSwitcherButton />
       </Grid>
       <Grid
         item
