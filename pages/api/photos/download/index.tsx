@@ -15,8 +15,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    console.log(req.body);
-
     try {
       // Créer un nouvel objet archiver
       const archive = archiver("zip", {
@@ -61,15 +59,12 @@ export default async function handler(
       // Attendre la fin de l'écriture du fichier ZIP
       await new Promise<void>((resolve) => {
         output.on("close", () => {
-          console.log("Archive créée avec succès");
           resolve();
         });
       });
 
       // Envoyer la réponse avec le fichier ZIP à télécharger
       const zipFilePath = path.resolve(process.cwd(), "photos.zip");
-      console.log(zipFilePath);
-
       res.setHeader("Content-Disposition", 'attachment; filename="photos.zip"');
       res.setHeader("Content-Type", "application/zip");
       fs.createReadStream(zipFilePath).pipe(res);

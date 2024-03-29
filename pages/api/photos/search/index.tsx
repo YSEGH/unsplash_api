@@ -10,8 +10,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    console.log("req SEARCH", req.query);
-
     try {
       const result = await axios.get(basePath, {
         params: {
